@@ -1,7 +1,9 @@
 <template>
   <div>
-    <p>Index</p>
     <switchButton></switchButton>
+    <div class="box userBox">
+        田中太郎
+    </div>
   </div>
 </template>
 
@@ -14,3 +16,7 @@ export default {
     }
 }
 </script>
+<style lang="sass">
+    
+</style>
+

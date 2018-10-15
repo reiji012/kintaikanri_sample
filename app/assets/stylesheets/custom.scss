@@ -27,7 +27,20 @@ body {
     font-size: 2em;
 }
 
-
+/* navbar 全体の背景色とボーダーカラー */
+.navbar {
+    background-color: #ffffff;
+    border-color: #ffffff;
+    }
+/* navbar テキストカラー */
+.navbar {
+    a {
+        color: #000000;
+    }
+}
+.userBox {
+    border-radius: 10px;
+}
 
 .box {
     /*box-shadow*/
