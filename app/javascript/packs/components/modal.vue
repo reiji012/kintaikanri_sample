@@ -7,21 +7,12 @@
 
           <div class="modal-header">
             <slot name="header">
-							田中　太郎さんですか？
             </slot>
           </div>
 
           <div class="modal-footer">
-            <slot name="footer">
-              帰社登録します
-							<div>
-              <button class="modal-default-button" @click="$emit('close')">
-                はい
-              </button>
-							<button class="modal-default-button" @click="$emit('close')">
-                いいえ
-              </button>
-							</div>
+            <slot name="footer" @click="$emit('close')">
+              
             </slot>
           </div>
         </div>

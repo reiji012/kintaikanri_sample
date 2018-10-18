@@ -1,7 +1,7 @@
 <template>
   <div>
     <switchButton></switchButton>
-    <div v-for="user in users" v-bind:key="'row_user_' + user.id" @click="showmodal(user.name)" id="show-modal" class="box userBox" style="background-color: #f0f0f0">
+    <div v-for="user in users" v-bind:key="'row_user_' + user.id" @click="showmodal(user)" id="show-modal" class="box userBox" style="background-color: #f0f0f0">
         <label v-bind:for="'user_' + user.id">{{ user.name }}</label>
     </div>
   <!-- use the modal component, pass in the prop -->
@@ -10,7 +10,13 @@
       you can use custom content here to overwrite
       default content
     -->
-    <h3 slot="header">{{ userName }}さんですか？</h3>
+    <div slot="header">帰社記録
+    <ul class="list-group">
+        <li v-for="record in records" v-if="record.user_id == userId" v-bind:key="'row_task_' + record.id" class="list-group-item">
+        <label v-bind:for="'record_' + record.id">{{ record.return_date }}</label>
+        </li>
+    </ul>
+    </div>
   </modal>
 </div>
   
@@ -18,7 +24,7 @@
 
 <script>
 import Switch from "./button.vue";
-import Modal from "./modal.vue";
+import Modal from "./recordModal.vue";
 import axios from 'axios';
 
 export default {
@@ -30,11 +36,14 @@ export default {
     return {
       showModal: false,
       users: [],
+      records: [],
       userName: "test",
+      userId: "",
     };
   },
   mounted: function() {
     this.fetchUsers();
+    this.fetchRecords();
   },
   methods: {
     fetchUsers: function() {
@@ -46,8 +55,18 @@ export default {
           console.log(error);
         });
     },
-    showmodal: function(name) {
-      this.userName = name
+    fetchRecords: function() {
+      axios.get('/api/records').then((response) => {
+        for(var i = 0; i < response.data.records.length; i++) {
+          this.records.push(response.data.records[i]);
+        }
+      }, (error) => {
+          console.log(error);
+        });
+    },
+    showmodal: function(user) {
+      this.userName = user.name
+      this.userId = user.id
       this.showModal = true;
     },
   }

@@ -2,7 +2,7 @@ class Api::UsersController < ApplicationController
 
     #GET \users
     def index
-      @users = User.order('updated_at DESC')
+      @users = User.order('kana ASC')
 		end
 
 	#POST /users

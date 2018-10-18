@@ -1,7 +1,7 @@
 <template>
   <div>
     <switchButton></switchButton>
-    <div v-for="user in users" v-bind:key="'row_user_' + user.id" @click="showmodal(user.name)" id="show-modal" class="box userBox">
+    <div v-for="user in users" v-bind:key="'row_user_' + user.id" @click="showmodal(user)" id="show-modal" class="box userBox">
         <label v-bind:for="'user_' + user.id">{{ user.name }}</label>
     </div>
   <!-- use the modal component, pass in the prop -->
@@ -11,6 +11,13 @@
       default content
     -->
     <h3 slot="header">{{ userName }}さんですか？</h3>
+    <div slot="footer">
+      帰社登録します
+			<div>
+        <button type="button" @click="showModal = false" v-on:click="createRecord" class="btn btn-primary btn-lg btn-block" style="float: left">はい</button>
+        <button type="button" @click="showModal = false" class="btn btn-default btn-lg btn-block" style="float: tight">いいえ</button>
+			</div>
+    </div>
   </modal>
 </div>
   
@@ -30,12 +37,20 @@ export default {
     return {
       showModal: false,
       users: [],
-      userName: "test",
+      userName: "",
+      userId: "",
+      today: "",
     };
   },
   mounted: function() {
     this.fetchUsers();
-  },
+    let day = new Date();
+    let year = day.getFullYear();
+    let month = day.getMonth() + 1;
+    let date = day.getDate();
+    this.today = `${year}-${month}-${date}`;
+    console.log(this.today)
+},
   methods: {
     fetchUsers: function() {
       axios.get('/api/users').then((response) => {
@@ -46,10 +61,19 @@ export default {
           console.log(error);
         });
     },
-    showmodal: function(name) {
-      this.userName = name
+    showmodal: function(user) {
+      this.userName = user.name
+      this.userId = user.id
       this.showModal = true;
     },
+    createRecord: function () {
+      axios.post('/api/records', { record: { user_id: this.userId, return_date: this.today } }).then((response) => {
+         this.records.unshift(response.data.record);
+         this.newTask = '';
+       }, (error) => {
+         console.log(error);
+       });
+     }
   }
 }
 </script>
