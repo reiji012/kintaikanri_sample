@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  user: one
+  return_date: 2018-10-18
+  difference_amount: 1
+
+two:
+  user: two
+  return_date: 2018-10-18
+  difference_amount: 1
