@@ -1,6 +1,11 @@
 <template>
-    <div>
-        <input type="checkbox" checked data-toggle="toggle" data-onstyle="warning" data-offstyle="info">
+    <div class="switchButton" style="display: flex;">
+        <div class="box" >
+            <router-link to="/">帰社登録</router-link>
+        </div>
+        <div class="box" >
+            <router-link to="recordCheck">記録確認</router-link>
+        </div>
     </div>
 </template>
 

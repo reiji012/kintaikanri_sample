@@ -29,8 +29,8 @@ class Api::UsersController < ApplicationController
 	private
 
 		def user_params
-			params.fetch(:user, {}).permit(
-				:name, :is_done, :kana, :amount
+			params.require(:user).permit(
+				:name, :kana, :amount, :is_done
 			)
 		end
 		

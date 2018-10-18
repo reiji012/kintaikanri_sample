@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_10_18_024054) do
+ActiveRecord::Schema.define(version: 2018_10_18_050838) do
 
   create_table "return_times", force: :cascade do |t|
     t.integer "user_id"
@@ -24,11 +24,11 @@ ActiveRecord::Schema.define(version: 2018_10_18_024054) do
 
   create_table "users", force: :cascade do |t|
     t.string "name", null: false
+    t.string "kana", null: false
+    t.integer "amount", null: false
     t.boolean "is_done", default: false, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.string "kana"
-    t.integer "amount"
   end
 
 end

@@ -2,7 +2,7 @@ class CreateReturnTimes < ActiveRecord::Migration[5.2]
   def change
     create_table :return_times do |t|
       t.references :user, foreign_key: true
-      t.date :return_date, null: false
+      t.date :return_date
       t.integer :difference_amount
 
       t.timestamps

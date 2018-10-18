@@ -1,3 +1,3 @@
 json.set! :user do
-    json.extract! @user, :id, :name, :is_done, :created_at, :updated_at, :kana, :amount
-  end
+  json.extract! @user, :id, :name, :kana, :amount, :is_done
+end
