@@ -11,17 +11,20 @@
       you can use custom content here to overwrite
       default content
     -->
-    <div slot="header">帰社記録
+    <div slot="header">帰社記録_帰社費用合計<span style="color: #008000">¥{{ amount_sum }}</span>
+    </div>
+    <div slot="body">
     <ul class="list-group">
         <li v-for="record in records" v-if="record.user_id == userId" v-bind:key="'row_task_' + record.id" class="list-group-item">
         <label v-bind:for="'record_' + record.id">{{ record.return_date }}</label>
         <label v-bind:for="'record_' + record.id">___¥{{ record.amount }}</label>
         </li>
     </ul>
+    </div>
     <div slot="footer">
       <div @click="showModal = false" class="box">確認</div>
     </div>
-    </div>
+    
   </modal>
 </div>
   
@@ -44,6 +47,7 @@ export default {
       records: [],
       userName: "test",
       userId: "",
+      amount_sum: 0,
     };
   },
   mounted: function() {
@@ -73,6 +77,14 @@ export default {
       this.userName = user.name;
       this.userId = user.id;
       this.showModal = true;
+      this.amount_sum = 0;
+      for (let i = 0; i < this.records.length; i++) {
+        let record = this.records[i];
+        if (record.user_id == this.userId) {
+          this.amount_sum += record.amount;
+        }
+        
+      }
     },
   }
 }

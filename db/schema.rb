@@ -15,6 +15,8 @@ ActiveRecord::Schema.define(version: 2018_10_19_014811) do
   create_table "return_times", force: :cascade do |t|
     t.integer "user_id"
     t.date "return_date"
+    t.integer "null"
+    t.integer "false"
     t.integer "amount"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
