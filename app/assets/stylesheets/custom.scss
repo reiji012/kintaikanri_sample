@@ -45,6 +45,32 @@ body {
 .userBox {
     border-radius: 10px;
     margin-bottom: 2em;
+    -webkit-transition: all .3s ease;
+    -moz-transition: all .3s ease;
+    -ms-transition: all .3s ease;
+    -o-transition: all .3s ease;
+    transition: all .3s ease;
+}
+ 
+.userBox:hover {
+    background-color: #dcdcdc;
+}
+
+#record {
+    .userBox {
+        border-radius: 10px;
+        margin-bottom: 2em;
+        -webkit-transition: all .3s ease;
+        -moz-transition: all .3s ease;
+        -ms-transition: all .3s ease;
+        -o-transition: all .3s ease;
+        transition: all .3s ease;
+        background-color: #000000;
+    }
+     
+    .userBox:hover {
+        background-color: #dcdcdc;
+    }
 }
 
 .box {

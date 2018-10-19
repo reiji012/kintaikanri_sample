@@ -1,8 +1,8 @@
 <template>
   <div>
     <switchButton></switchButton>
-    <div v-for="user in users" v-bind:key="'row_user_' + user.id" @click="showmodal(user)" id="show-modal" class="box userBox" style="background-color: #f0f0f0;">
-        <label v-bind:for="'user_' + user.id">{{ user.name }}</label>
+    <div v-for="user in users" v-bind:key="'row_user_' + user.id" @click="showmodal(user)" id="show-modal" class="box userBox">
+      <label v-bind:for="'user_' +user.id">{{ user.name }}</label>
     </div>
   <!-- use the modal component, pass in the prop -->
   <modal v-if="showModal" @close="showModal = false">
@@ -66,8 +66,8 @@ export default {
         });
     },
     showmodal: function(user) {
-      this.userName = user.name
-      this.userId = user.id
+      this.userName = user.name;
+      this.userId = user.id;
       this.showModal = true;
     },
   }
