@@ -6,11 +6,7 @@
 	
 	
 html { 
-    @media (max-width: 1000px) {
-  .box {
-    font-size: 24px;
-  }
-}
+
     /* スマートフォン */
     @media (max-width: 670px) {
     .box {
@@ -48,9 +44,6 @@ body {
 .header {
     margin-bottom: 2em;
 
-    @media (max-width: 1000px) {
-      margin-bottom: 6em;
-    }
     /* スマートフォン */
     @media (max-width: 670px) {
       margin-bottom: 6em;
@@ -116,9 +109,6 @@ body {
 .switchButton {
     margin-bottom: 2em;
 
-    @media (max-width: 1000px) {
-      margin-bottom: 5em;
-    }
     /* スマートフォン */
     @media (max-width: 670px) {
       margin-bottom: 5em;
@@ -186,11 +176,21 @@ body {
     background-color: rgba(0, 0, 0, .5);
     display: table;
     transition: opacity .3s ease;
+
+    /* スマートフォン */
+    @media (max-width: 670px) {
+      font-size: 22px;
+    }
   }
   
   .modal-wrapper {
     display: table-cell;
     vertical-align: middle;
+
+    /* スマートフォン */
+    @media (max-width: 670px) {
+      font-size: 22px;
+    }
   }
   
   .modal-container {
@@ -202,20 +202,40 @@ body {
     box-shadow: 0 2px 8px rgba(0, 0, 0, .33);
     transition: all .3s ease;
     font-family: Helvetica, Arial, sans-serif;
+
+    /* スマートフォン */
+    @media (max-width: 670px) {
+      font-size: 22px;
+    }
   }
   
   .modal-header h3 {
     margin-top: 0;
     color: #42b983;
     font-size: 18px;
+
+    /* スマートフォン */
+    @media (max-width: 670px) {
+      font-size: 22px;
+    }
   }
   
   .modal-body {
     margin: 20px 0;
+
+    /* スマートフォン */
+    @media (max-width: 670px) {
+      font-size: 22px;
+    }
   }
   
   .modal-default-button {
     float: right;
+
+    /* スマートフォン */
+    @media (max-width: 670px) {
+      font-size: 22px;
+    }
   }
 
   .form-control {

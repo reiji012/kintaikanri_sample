@@ -14,8 +14,8 @@
     <div slot="body">
       <form id="birthday">
   <select v-model="year" @change="get_days">
-    <option v-for="n in 100" :value="n + 1917">
-      {{ n + 1917 }}
+    <option v-for="n in 2" :value="2018">
+      {{ n + 2017 }}
     </option>
   </select>年
   <select v-model="month" @change="get_days">
@@ -105,7 +105,7 @@ export default {
        });
     },
     get_days: function () {
-      this.days_max = new Date(this.selected_y, this.selected_m, 0).getDate();
+      this.days_max = new Date(this.year, this.month, 0).getDate();
     }
   }
 }
