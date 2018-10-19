@@ -12,6 +12,23 @@
     <h3 slot="header">{{ userName }}さんですか？</h3>
 
     <div slot="body">
+      <form id="birthday">
+  <select v-model="year" @change="get_days">
+    <option v-for="n in 100" :value="n + 1917">
+      {{ n + 1917 }}
+    </option>
+  </select>年
+  <select v-model="month" @change="get_days">
+    <option v-for="n in 12" :value="n">
+      {{ n }}
+    </option>
+  </select>月
+   <select v-model="date">
+    <option v-for="n in days_max" :value="n">
+      {{ n }}
+    </option>
+  </select>日
+</form>
       <p style="float: left; width: 50%;">帰社費用：　¥</p>
       <input type="number" v-model="amount" placeholder= "amount" style="float: right; width: 50%;" >
     </div>
@@ -46,17 +63,24 @@ export default {
       kana: "",
       userId: "",
       today: "",
+      year: "",
+      month: "",
+      date: "",
       amount: 0,
+      days_max: 0,
     };
   },
   mounted: function() {
     this.fetchUsers();
     let day = new Date();
-    let year = day.getFullYear();
-    let month = day.getMonth() + 1;
-    let date = day.getDate();
-    this.today = `${year}-${month}-${date}`;
-},
+    this.year = day.getFullYear();
+    this.month = day.getMonth() + 1;
+    this.date = day.getDate();
+    this.today = `${this.year}-${this.month}-${this.date}`;
+  },
+  created: function() {
+    this.get_days();
+  },
   methods: {
     fetchUsers: function() {
       axios.get('/api/users').then((response) => {
@@ -79,7 +103,10 @@ export default {
        }, (error) => {
          console.log(error);
        });
-     }
+    },
+    get_days: function () {
+      this.days_max = new Date(this.selected_y, this.selected_m, 0).getDate();
+    }
   }
 }
 </script>

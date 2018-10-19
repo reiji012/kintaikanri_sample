@@ -1,16 +1,22 @@
 <template>
     <div>
         <div class="switchButton" style="display: flex; float: left;">
+            <router-link to="/">
             <div class="box" style="border-radius: 20px;">
-                <router-link to="/">帰社登録</router-link>
+                帰社登録
             </div>
+            </router-link>
+            <router-link to="recordCheck">
             <div class="box" style="border-radius: 20px;">
-                <router-link to="recordCheck">記録確認</router-link>
+                記録確認
             </div>
+            </router-link>
         </div>
+        <router-link to="userRegistration">
         <div id="userPut" class="box" style="border-radius: 20px; float: right;">
-            <router-link to="userRegistration">ユーザー登録</router-link>
+            ユーザー登録
         </div>
+        </router-link>
     </div>
 </template>
 

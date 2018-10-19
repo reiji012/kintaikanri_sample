@@ -4,7 +4,20 @@
 /* universal */
 
 	
-html { font-size: 62.5% }
+	
+html { 
+    @media (max-width: 1000px) {
+  .box {
+    font-size: 24px;
+  }
+}
+    /* スマートフォン */
+    @media (max-width: 670px) {
+    .box {
+        font-size: 20px;
+    }
+    }
+}
 
 body {
     padding-top: 60px;
@@ -34,6 +47,14 @@ body {
 
 .header {
     margin-bottom: 2em;
+
+    @media (max-width: 1000px) {
+      margin-bottom: 6em;
+    }
+    /* スマートフォン */
+    @media (max-width: 670px) {
+      margin-bottom: 6em;
+    }
 }
 .navbar {
     background-color: #ffffff;
@@ -94,6 +115,14 @@ body {
 
 .switchButton {
     margin-bottom: 2em;
+
+    @media (max-width: 1000px) {
+      margin-bottom: 5em;
+    }
+    /* スマートフォン */
+    @media (max-width: 670px) {
+      margin-bottom: 5em;
+    }
 }
 
 /* ラベル要素の中身のスタイル（具体的にはスイッチ部分） */
@@ -187,4 +216,8 @@ body {
   
   .modal-default-button {
     float: right;
+  }
+
+  .form-control {
+      margin-bottom: 1em;
   }
