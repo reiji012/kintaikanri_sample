@@ -8,6 +8,6 @@ var app = new Vue ({
     el: '#app',
     components: {
         'navbar': Header,
-        'switchButton': SwitchButton,
+        'switchbutton': SwitchButton,
     }
 });

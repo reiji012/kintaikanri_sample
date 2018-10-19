@@ -1,8 +1,9 @@
 <template>
   <div>
-    <switchButton></switchButton>
+    <div id="record">
     <div v-for="user in users" v-bind:key="'row_user_' + user.id" @click="showmodal(user)" id="show-modal" class="box userBox">
       <label v-bind:for="'user_' +user.id">{{ user.name }}</label>
+    </div>
     </div>
   <!-- use the modal component, pass in the prop -->
   <modal v-if="showModal" @close="showModal = false">
@@ -17,6 +18,9 @@
         <label v-bind:for="'record_' + record.id">___¥{{ record.amount }}</label>
         </li>
     </ul>
+    <div slot="footer">
+      <div @click="showModal = false" class="box">確認</div>
+    </div>
     </div>
   </modal>
 </div>
@@ -25,7 +29,7 @@
 
 <script>
 import Switch from "./button.vue";
-import Modal from "./recordModal.vue";
+import Modal from "./modal.vue";
 import axios from 'axios';
 
 export default {

@@ -6,6 +6,9 @@
         <div class="box" style="border-radius: 20px;">
             <router-link to="recordCheck">記録確認</router-link>
         </div>
+        <div id="userPut" class="box" style="border-radius: 20px; float: right;">
+            <router-link to="userRegistration">ユーザー登録</router-link>
+        </div>
     </div>
 </template>
 

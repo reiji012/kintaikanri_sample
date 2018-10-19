@@ -7,13 +7,16 @@
 
           <div class="modal-header">
             <slot name="header">
-				header
+            </slot>
+          </div>
+
+          <div class="modal-body">
+            <slot name="body">
             </slot>
           </div>
 
           <div class="modal-footer">
             <slot name="footer">
-              <div @click="$emit('close')" class="box">確認</div>
             </slot>
           </div>
         </div>

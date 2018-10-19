@@ -1,7 +1,6 @@
 <template>
-  <div>
-    <switchButton></switchButton>
-    <div v-for="user in users" v-bind:key="'row_user_' + user.id" @click="showmodal(user)" id="show-modal" class="box userBox">
+  <div>    
+    <div v-for="user in users" v-bind:key="'row_user_' + user.id" @click="showmodal(user)" id="show-modal" class="box userBox" style="clear:both;">
         <label v-bind:for="'user_' + user.id">{{ user.name }}</label>
     </div>
   <!-- use the modal component, pass in the prop -->
@@ -44,6 +43,7 @@ export default {
       showModal: false,
       users: [],
       userName: "",
+      kana: "",
       userId: "",
       today: "",
       amount: 0,
@@ -74,9 +74,8 @@ export default {
       this.showModal = true;
     },
     createRecord: function () {
-      axios.post('/api/records', { record: { user_id: this.userId, return_date: this.today } }).then((response) => {
+      axios.post('/api/records', { record: { user_id: this.userId, return_date: this.today, amount: this.amount } }).then((response) => {
          this.records.unshift(response.data.record);
-         this.newTask = '';
        }, (error) => {
          console.log(error);
        });
