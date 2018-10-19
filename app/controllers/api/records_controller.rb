@@ -6,8 +6,10 @@ end
 
   #POST /users
   def create
-      @record = ReturnTime.new(record_params)
-
+			@record = ReturnTime.new(record_params)
+			unless @record.amount
+				@record.amount = @record.user.amount
+			end
       if @record.save
           render :show, status: :created
       else
@@ -29,7 +31,7 @@ end
 
       def record_params
           params.require(:record).permit(
-              :user_id, :return_date, :difference_amount
+              :user_id, :return_date, :amount
           )
       end
 end

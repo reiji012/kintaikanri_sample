@@ -1,7 +1,7 @@
 <template>
   <div>
     <switchButton></switchButton>
-    <div v-for="user in users" v-bind:key="'row_user_' + user.id" @click="showmodal(user)" id="show-modal" class="box userBox" style="background-color: #f0f0f0">
+    <div v-for="user in users" v-bind:key="'row_user_' + user.id" @click="showmodal(user)" id="show-modal" class="box userBox" style="background-color: #f0f0f0;">
         <label v-bind:for="'user_' + user.id">{{ user.name }}</label>
     </div>
   <!-- use the modal component, pass in the prop -->
@@ -14,6 +14,7 @@
     <ul class="list-group">
         <li v-for="record in records" v-if="record.user_id == userId" v-bind:key="'row_task_' + record.id" class="list-group-item">
         <label v-bind:for="'record_' + record.id">{{ record.return_date }}</label>
+        <label v-bind:for="'record_' + record.id">___¥{{ record.amount }}</label>
         </li>
     </ul>
     </div>

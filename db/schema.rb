@@ -10,12 +10,12 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_10_18_050838) do
+ActiveRecord::Schema.define(version: 2018_10_19_014811) do
 
   create_table "return_times", force: :cascade do |t|
     t.integer "user_id"
     t.date "return_date"
-    t.integer "difference_amount"
+    t.integer "amount"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["user_id", "return_date"], name: "index_return_times_on_user_id_and_return_date"
