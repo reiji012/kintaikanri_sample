@@ -7,6 +7,8 @@
 	
 html { 
 
+    min-width: 560px;
+
     /* スマートフォン */
     @media (max-width: 1000px) {
     .box {
@@ -207,6 +209,7 @@ body {
     /* スマートフォン */
     @media (max-width: 1000px) {
       font-size: 22px;
+      width: 400px;
     }
   }
   
@@ -217,7 +220,7 @@ body {
 
     /* スマートフォン */
     @media (max-width: 1000px) {
-      font-size: 22px;
+      font-size: 24px;
     }
   }
   
