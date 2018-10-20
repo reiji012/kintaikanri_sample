@@ -98,6 +98,7 @@ export default {
       this.showModal = true;
     },
     createRecord: function () {
+          this.today = `${this.year}-${this.month}-${this.date}`;
       axios.post('/api/records', { record: { user_id: this.userId, return_date: this.today, amount: this.amount } }).then((response) => {
          this.records.unshift(response.data.record);
        }, (error) => {
