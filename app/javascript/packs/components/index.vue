@@ -36,7 +36,7 @@
     <div slot="footer">
       帰社登録します
         <div class="btn-group">
-          <button type="button" @click="showModal = false" v-on:click="createRecord" class="btn btn-primary btn-sm" style="float: left">登録</button>
+          <button type="button" @click="showModal = false" v-on:click="createRecord" class="btn btn-primary btn-sm" style="float: left; margin-right: 30px;">登録</button>
           <button type="button" @click="showModal = false" class="btn btn-default btn-sm" style="float: right">キャンセル</button>
         </div>
     </div>

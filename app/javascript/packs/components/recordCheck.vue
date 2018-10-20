@@ -11,7 +11,7 @@
       you can use custom content here to overwrite
       default content
     -->
-    <div slot="header">帰社記録_帰社費用合計<span style="color: #008000">¥{{ amount_sum }}</span>
+    <div slot="header">帰社記録_帰社費用合計<span id="amount_sum" style="color: #008000">¥{{ amount_sum }}</span>
     </div>
     <div slot="body">
     <ul class="list-group">
