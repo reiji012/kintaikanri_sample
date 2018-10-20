@@ -6,26 +6,26 @@
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
 User.create!(name: "田中 浩二",
-    kana: "タナカ コウジ",
+    kana: "たなかこうじ",
     amount: 300
 )
 
 User.create!(name: "松田 慎吾",
-    kana: "マツダ シンゴ",
+    kana: "まつだしんご",
     amount: 300
 )
     
 User.create!(name: "斎藤 花子",
-    kana: "サイトウ ハナコ",
+    kana: "さいとうはなこ",
     amount: 400
 )
 
 User.create!(name: "高橋 洋子",
-    kana: "タカハシ ヨウコ",
+    kana: "たかはしようこ",
     amount: 250
 )
 
 User.create!(name: "北村 庄司",
-    kana: "キタムラ ショウシ",
+    kana: "きたむらしょうじ",
     amount: 0
 )

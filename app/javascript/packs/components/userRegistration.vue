@@ -2,7 +2,7 @@
 <div class = "row">
   <div class = "col-md-6 col-md-offset-3">
       <label >名前</label>
-      <input v-model="name" class="form-control" type="text"/>
+      <input v-model="name" class="form-control" type="text" v-on:input="update_furigana"/>
 
       <label >仮名（ひらがな）</label>
       <input v-model="furigana" class="form-control" type="text" />
@@ -35,7 +35,11 @@ export default {
        		}, (error) => {
          		console.log(error);
        		});
-     	}
+		},
+		update_furigana (input) {
+    this.history.push(input.target.value)
+    this.furigana = historykana(this.history)
+    }
 	}
 }
 </script>

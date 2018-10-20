@@ -106,7 +106,8 @@ export default {
     },
     get_days: function () {
       this.days_max = new Date(this.year, this.month, 0).getDate();
-    }
+    },
+    
   }
 }
 </script>
