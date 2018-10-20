@@ -12,23 +12,23 @@
     <h3 slot="header">{{ userName }}さんですか？</h3>
 
     <div slot="body">
-      <form id="birthday">
-  <select v-model="year" @change="get_days">
-    <option v-for="n in 2" :value="2018">
-      {{ n + 2017 }}
-    </option>
-  </select>年
-  <select v-model="month" @change="get_days">
-    <option v-for="n in 12" :value="n">
-      {{ n }}
-    </option>
-  </select>月
-   <select v-model="date">
-    <option v-for="n in days_max" :value="n">
-      {{ n }}
-    </option>
-  </select>日
-</form>
+      <form id="day">
+        <select v-model="year" @change="get_days" id="year">
+          <option v-for="n in 2" :value="2018">
+            {{ n + 2017 }}
+          </option>
+        </select>年
+        <select v-model="month" @change="get_days" id="month">
+          <option v-for="n in 12" :value="n">
+            {{ n }}
+          </option>
+        </select>月
+        <select v-model="date">
+          <option v-for="n in days_max" :value="n">
+            {{ n }}
+          </option>
+        </select>日
+      </form>
       <p style="float: left; width: 50%;">帰社費用：　¥</p>
       <input type="number" v-model="amount" placeholder= "amount" style="float: right; width: 50%;" >
     </div>

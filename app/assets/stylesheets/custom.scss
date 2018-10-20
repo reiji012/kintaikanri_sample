@@ -230,12 +230,19 @@ body {
     /* スマートフォン */
     @media (max-width: 1000px) {
       font-size: 34px;
+      margin-bottom: 60px;
+
+      #day {
+        margin-bottom: 30px;
+      }
     }
   }
   
   .modal-footer {
-    .btn {
-        font-size: 28px;
+    @media (max-width: 1000px) {      
+        .btn {
+            font-size: 28px;
+        }
     }
   }
 
