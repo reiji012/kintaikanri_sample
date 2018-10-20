@@ -192,7 +192,7 @@ body {
 
     /* スマートフォン */
     @media (max-width: 1000px) {
-      font-size: 22px;
+      font-size: 25px;
     }
   }
   
@@ -209,7 +209,7 @@ body {
     /* スマートフォン */
     @media (max-width: 1000px) {
       font-size: 22px;
-      width: 400px;
+      width: 550px;
     }
   }
   
@@ -220,7 +220,7 @@ body {
 
     /* スマートフォン */
     @media (max-width: 1000px) {
-      font-size: 24px;
+      font-size: 36px;
     }
   }
   
@@ -229,16 +229,22 @@ body {
 
     /* スマートフォン */
     @media (max-width: 1000px) {
-      font-size: 22px;
+      font-size: 34px;
     }
   }
   
+  .modal-footer {
+    .btn {
+        font-size: 28px;
+    }
+  }
+
   .modal-default-button {
     float: right;
 
     /* スマートフォン */
     @media (max-width: 1000px) {
-      font-size: 22px;
+      font-size: 26px;
     }
   }
 
