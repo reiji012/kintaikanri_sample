@@ -59,6 +59,7 @@ export default {
     return {
       showModal: false,
       users: [],
+      records: [],
       userName: "",
       kana: "",
       userId: "",

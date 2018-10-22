@@ -145,7 +145,6 @@ export default {
           this.month = (this.month===12)?1:this.month+1;
           this.year = (this.month===1)?this.year+1:this.year;
         }
-        // this.month = ( '00' + this.month ).slice( -2 );
         this.day =`${this.year}-${this.month}`
         console.log(this.day)
         this.setRecord();
