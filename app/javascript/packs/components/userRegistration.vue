@@ -1,5 +1,6 @@
 <template>
 <div class = "row">
+	<p>{{ status }}</p>
   <div class = "col-md-6 col-md-offset-3">
       <label >名前</label>
       <input v-model="name" class="form-control" type="text" v-on:input="update_furigana"/>
@@ -25,7 +26,8 @@ export default {
 			name: "",
 			furigana: "",
 			amount: 0,
-			history: []
+			history: [],
+			status: "",
 		}
 	},
 	methods: {
@@ -34,7 +36,8 @@ export default {
          		this.users.unshift(response.data.user);
        		}, (error) => {
          		console.log(error);
-       		});
+					 });
+					 this.status = status[created];
 		},
 		update_furigana (input) {
     this.history.push(input.target.value)

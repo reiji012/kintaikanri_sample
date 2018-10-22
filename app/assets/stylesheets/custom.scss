@@ -205,6 +205,13 @@ body {
     box-shadow: 0 2px 8px rgba(0, 0, 0, .33);
     transition: all .3s ease;
     font-family: Helvetica, Arial, sans-serif;
+    overflow-y: scroll;
+    /* スマホでスワイプして指を離すまでの間下部の背景が無くなるため余分に指定 */
+  height: calc(50% + 100px);
+//   background: rgba(0, 0, 0, 0.5);
+//   border-bottom: 100px solid transparent;
+  cursor: pointer;
+  opacity: 1;
 
     /* スマートフォン */
     @media (max-width: 1000px) {
@@ -226,7 +233,7 @@ body {
           }
     }
     #amount_sum {
-        font-size: 24px;
+        font-size: 21px;
         @media (max-width: 1000px) {
             font-size: 40px;
           }
@@ -240,6 +247,7 @@ body {
     @media (max-width: 1000px) {
       font-size: 34px;
       margin-bottom: 60px;
+
 
       #day {
         margin-bottom: 30px;

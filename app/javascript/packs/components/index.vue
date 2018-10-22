@@ -14,7 +14,7 @@
     <div slot="body">
       <form id="day">
         <select v-model="year" @change="get_days" id="year">
-          <option v-for="n in 2" :value="2018">
+          <option v-for="n in 2" :value="n + 2017">
             {{ n + 2017 }}
           </option>
         </select>年
@@ -37,7 +37,7 @@
       帰社登録します
         <div class="btn-group">
           <button type="button" @click="showModal = false" v-on:click="createRecord" class="btn btn-primary btn-sm" style="float: left; margin-right: 30px;">登録</button>
-          <button type="button" @click="showModal = false" class="btn btn-default btn-sm" style="float: right">キャンセル</button>
+          <button type="button" @click="showModal = false" v-on:click="set_day();" class="btn btn-default btn-sm" style="float: right">キャンセル</button>
         </div>
     </div>
   </modal>
@@ -72,11 +72,7 @@ export default {
   },
   mounted: function() {
     this.fetchUsers();
-    let day = new Date();
-    this.year = day.getFullYear();
-    this.month = day.getMonth() + 1;
-    this.date = day.getDate();
-    this.today = `${this.year}-${this.month}-${this.date}`;
+    this.set_day();
   },
   created: function() {
     this.get_days();
@@ -98,17 +94,25 @@ export default {
       this.showModal = true;
     },
     createRecord: function () {
+      console.log(this.year);
           this.today = `${this.year}-${this.month}-${this.date}`;
       axios.post('/api/records', { record: { user_id: this.userId, return_date: this.today, amount: this.amount } }).then((response) => {
          this.records.unshift(response.data.record);
        }, (error) => {
          console.log(error);
        });
+       this.set_day();
     },
     get_days: function () {
       this.days_max = new Date(this.year, this.month, 0).getDate();
     },
-    
+    set_day: function() {
+      let day = new Date();
+      this.year = day.getFullYear();
+      this.month = day.getMonth() + 1;
+      this.date = day.getDate();
+      this.today = `${this.year}-${this.month}-${this.date}`;
+    },
   }
 }
 </script>

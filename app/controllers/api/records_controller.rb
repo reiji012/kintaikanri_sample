@@ -1,7 +1,7 @@
 class Api::RecordsController < ApplicationController
 #GET \users
 def index
-    @records = ReturnTime.order('updated_at ASC')
+    @records = ReturnTime.order('return_date ASC')
 end
 
   #POST /users
