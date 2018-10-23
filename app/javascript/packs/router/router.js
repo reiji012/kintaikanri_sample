@@ -20,6 +20,6 @@ var router = new VueRouter({
 export default router
 
 router.beforeEach((to, from, next) => {
-  next({ name: '/login'});
+  next({ name: Login});
 })
 
