@@ -10,7 +10,16 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_10_19_014811) do
+ActiveRecord::Schema.define(version: 2018_10_23_072514) do
+
+  create_table "login_users", force: :cascade do |t|
+    t.string "name"
+    t.string "login_id"
+    t.string "password"
+    t.boolean "admin"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "return_times", force: :cascade do |t|
     t.integer "user_id"

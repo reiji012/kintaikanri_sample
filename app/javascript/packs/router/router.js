@@ -3,15 +3,23 @@ import VueRouter from 'vue-router'
 import Index from '../components/index.vue'
 import RecordCheck from '../components/recordCheck.vue'
 import UserRegistration from '../components/userRegistration.vue'
-
+import Login from '../components/login.vue'
 
 Vue.use(VueRouter)
 
-export default new VueRouter({
+var router = new VueRouter({
   mode: 'history',
   routes: [
-    { path: '/', component: Index },
+    { path: '/', component: Index, meta: { requiresAuth: true } },
     { path: '/recordCheck', component: RecordCheck },
-    { path: '/userRegistration', component: UserRegistration },
-  ],
+    { path: '/registration', component: UserRegistration },
+    { path: '/login', component: Login },
+  ]
+});
+
+export default router
+
+router.beforeEach((to, from, next) => {
+  next({ name: '/login'});
 })
+

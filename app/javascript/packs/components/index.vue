@@ -72,6 +72,7 @@ export default {
     };
   },
   mounted: function() {
+    this.isLogin();
     this.fetchUsers();
     this.set_day();
   },
@@ -93,6 +94,11 @@ export default {
       this.amount = user.amount;
       this.userId = user.id;
       this.showModal = true;
+    },
+    isLogin: function() {
+      if (true) {
+        axios.get('/login')
+      }
     },
     createRecord: function () {
       console.log(this.year);
