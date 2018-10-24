@@ -29,3 +29,17 @@ User.create!(name: "北村 庄司",
     kana: "きたむらしょうじ",
     amount: 0
 )
+
+LoginUser.create!(
+    name: "adminUser",
+    login_id: "crisi/admin",
+    password: "crisi",
+    admin: true
+)
+
+LoginUser.create!(
+    name: "guestUser",
+    login_id: "crisi",
+    password: "crisi",
+    admin: false
+)
