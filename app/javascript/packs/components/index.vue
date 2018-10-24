@@ -39,7 +39,7 @@
           <button type="button" @click="createRecord" class="btn btn-primary btn-sm" style="float: left; margin-right: 30px;">登録</button>
           <button type="button" @click="showModal = false" v-on:click="set_day();" class="btn btn-default btn-sm" style="float: right">キャンセル</button>
         </div>
-        <p>{{errorMessage}}</p>
+        <p style="color: red;">{{errorMessage}}</p>
     </div>
   </modal>
 </div>
@@ -92,6 +92,7 @@ export default {
         });
     },
     showmodal: function(user) {
+      this.errorMessage = "";
       this.userName = user.name;
       this.amount = user.amount;
       this.userId = user.id;
