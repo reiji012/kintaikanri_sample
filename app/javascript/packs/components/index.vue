@@ -14,17 +14,17 @@
     <div slot="body">
       <form id="day">
         <select v-model="year" @change="get_days" id="year">
-          <option v-for="n in 2" :value="n + 2017">
+          <option v-for="n in 2" :key="n + 2017">
             {{ n + 2017 }}
           </option>
         </select>年
         <select v-model="month" @change="get_days" id="month">
-          <option v-for="n in 12" :value="n">
+          <option v-for="n in 12" :key="n">
             {{ n }}
           </option>
         </select>月
         <select v-model="date">
-          <option v-for="n in days_max" :value="n">
+          <option v-for="n in days_max" :key="n">
             {{ n }}
           </option>
         </select>日
@@ -36,9 +36,10 @@
     <div slot="footer">
       帰社登録します
         <div class="btn-group">
-          <button type="button" @click="showModal = false" v-on:click="createRecord" class="btn btn-primary btn-sm" style="float: left; margin-right: 30px;">登録</button>
+          <button type="button" @click="createRecord" class="btn btn-primary btn-sm" style="float: left; margin-right: 30px;">登録</button>
           <button type="button" @click="showModal = false" v-on:click="set_day();" class="btn btn-default btn-sm" style="float: right">キャンセル</button>
         </div>
+        <p>{{errorMessage}}</p>
     </div>
   </modal>
 </div>
@@ -69,6 +70,7 @@ export default {
       date: "",
       amount: 0,
       days_max: 0,
+      errorMessage: "",
     };
   },
   mounted: function() {
@@ -104,11 +106,19 @@ export default {
       console.log(this.year);
           this.today = `${this.year}-${this.month}-${this.date}`;
       axios.post('/api/records', { record: { user_id: this.userId, return_date: this.today, amount: this.amount } }).then((response) => {
-         this.records.unshift(response.data.record);
-       }, (error) => {
-         console.log(error);
-       });
-       this.set_day();
+        if (response.data.message) {
+          console.log(response.data.message)
+          this.errorMessage = "その日はすでに登録されています。";
+        } else {
+          this.records.unshift(response.data.record);
+         this.showModal = false
+        }
+      })
+      .catch(error => {
+        console.log(error)
+      });
+      this.set_day();
+      this.errorMessage = "";
     },
     get_days: function () {
       this.days_max = new Date(this.year, this.month, 0).getDate();

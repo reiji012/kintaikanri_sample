@@ -1,20 +1,17 @@
-// @import "bootstrap-sprockets";
-// @import "bootstrap";
+@import "bootstrap-sprockets";
+@import "bootstrap";
 
 /* universal */
 
-	
-	
 html { 
+	min-width: 560px;
 
-    min-width: 560px;
-
-    /* スマートフォン */
-    @media (max-width: 1000px) {
-    .box {
-        font-size: 28px;
-    }
-    }
+	/* スマートフォン */
+	@media (max-width: 1000px) {
+		.box {
+			font-size: 28px;
+		}
+	}
 }
 
 body {
@@ -34,11 +31,11 @@ body {
   }
   
   .center h1 {
-    margin-bottom: 10px;
+  	margin-bottom: 10px;
   }
 
 .brand-logo {
-    font-size: 2em;
+  font-size: 2em;
 }
 
 /* navbar 全体の背景色とボーダーカラー */
@@ -47,20 +44,20 @@ body {
     margin-bottom: 2em;
 
     /* スマートフォン */
-    @media (max-width: 1000px) {
-      margin-bottom: 6em;
-      margin-bottom: 5em
-    }
+  @media (max-width: 1000px) {
+    margin-bottom: 6em;
+    margin-bottom: 5em
+  }
 }
 .navbar {
-    background-color: #ffffff;
-    border-color: #ffffff;
-    }
+  background-color: #ffffff;
+  border-color: #ffffff;
+}
 /* navbar テキストカラー */
 .navbar {
-    a {
-        color: #000000;
-    }
+	a {
+		color: #000000;
+	}
 }
 .userBox {
     border-radius: 10px;

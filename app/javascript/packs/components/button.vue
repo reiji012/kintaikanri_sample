@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div v-if="isLogin">
     <div class="switchButton" style="display: flex; float: left;">
       <router-link to="/">
         <div class="box" style="border-radius: 20px;">
@@ -25,6 +25,7 @@
 <script>
 
 import axios from 'axios';
+import Cookies from 'js-cookie';
 
 export default {
 
@@ -33,11 +34,12 @@ export default {
       showModal: false,
       users: [],
       isAdmin: false,
+      isLogin: false,
     };
   },
   mounted: function() {
     this.fetchUsers();
-
+    this.loginCheck();
   },
   methods: {
     fetchUsers: function() {
@@ -49,9 +51,11 @@ export default {
           console.log(error);
       });
     },
-    checkLogin: function() {
-      
-    }
+    loginCheck: function() {
+      if(Cookies.get('loginUser')) {
+        this.isLogin = true
+      } 
+    },
   }
 }
 </script>

@@ -3,6 +3,7 @@ Rails.application.routes.draw do
   get '/recordCheck', to: 'home#index'
   get '/userRegistration', to: 'home#index'
   get '/login', to: 'home#index'
+  post '/login', to: 'sessions#create'
 
   namespace :api, format: 'json' do
     resources :users, only: [:index, :create, :update]

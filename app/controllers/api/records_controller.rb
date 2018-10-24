@@ -6,15 +6,20 @@ end
 
   #POST /users
   def create
-			@record = ReturnTime.new(record_params)
-			unless @record.amount
-				@record.amount = @record.user.amount
-			end
-      if @record.save
-          render :show, status: :created
-      else
-          render json: @record.errors, status: :unprocessable_entity
-      end
+		@record = ReturnTime.new(record_params)
+		user = @record.user
+		if user.return_times.find_by(return_date: record_params[:return_date])
+			render :json => {message: "dateDuplicationError"}
+			return
+		end
+		unless @record.amount
+			@record.amount = @record.user.amount
+		end
+    if @record.save
+      render :show, status: :created
+    else
+      render json: @record.errors, status: :unprocessable_entity
+    end
   end
 
   # PATCH/PUT /users/1

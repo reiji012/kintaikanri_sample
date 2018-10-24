@@ -75,6 +75,8 @@ export default {
       month: "",
       date: "",
       day: "",
+      isLogin: false,
+      amount: 0,
     };
   },
   mounted: function() {
@@ -148,15 +150,15 @@ export default {
         this.day =`${this.year}-${this.month}`
         console.log(this.day)
         this.setRecord();
-      },
-      monthCheck: function() {
-        let month = this.month + "";
-        if (month.length == 1) {
-          return "0" + month;
-        } else {
-          return this.month
-        }
-      },
+    },
+    monthCheck: function() {
+      let month = this.month + "";
+      if (month.length == 1) {
+        return "0" + month;
+      } else {
+        return this.month
+      }
+    },
   }
 }
 </script>

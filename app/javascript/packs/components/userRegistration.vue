@@ -6,7 +6,7 @@
 		<p v-if="errors.length">
     <b>入力エラーがあります:</b>
     <ul>
-      <li v-for="error in errors">{{ error }}</li>
+      <li v-for="error in errors" :key="error">{{ error }}</li>
     </ul>
   </p>
       <label >名前</label>

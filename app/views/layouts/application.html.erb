@@ -17,5 +17,8 @@
         <%= content_tag(:div, message, class: "alert alert-#{message_type}") %>
       <% end %>  
     <%= yield %>
+
+    <script src="https://unpkg.com/vue/dist/vue.js"></script>
+    <script src="https://unpkg.com/vue-cookies@1.5.7/vue-cookies.js"></script>
   </body>
 </html>
