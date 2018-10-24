@@ -37,6 +37,7 @@ LoginUser.create!(
     admin: true
 )
 
+
 LoginUser.create!(
     name: "guestUser",
     login_id: "crisi",
