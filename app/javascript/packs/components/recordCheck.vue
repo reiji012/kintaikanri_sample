@@ -12,39 +12,47 @@
       default content
     -->
 
-    <!-- 前月移動ボタン -->
     <div slot="header">
-      <div style="display:flex">
-        <div class="headerItem shiftButton">
-          <div class="dateItem border table button" v-on:click="shift('back')">
-            <p>←</p>
-          </div>
-        </div>
+      <button @click="pushAmount">+</button>
+      <div class="showDate">
         <!-- 年月表示 -->
         <div v-cloak class="headerItem monthYear">
-          <div class="dateItem border table">
+          <div class="dateItem border table ">
             <span class="middle">{{year}}年{{this.month}}月</span>
+          </div>
+        </div>
+        <!-- 前月移動ボタン -->
+        <div class="headerItem shiftButton"  style="margin-right: 1em; margin-left: 1em;">
+          <div class="dateItem border table button" v-on:click="shift('back')">
+            <p>＜</p>
           </div>
         </div>
         <!-- 次月移動 -->
         <div class="headerItem shiftButton">
           <div class="dateItem border table button" v-on:click="shift('next')">
-            <p>→</p>
+            <p>＞</p>
           </div>
         </div>
+        
       </div>
       帰社記録_帰社費用合計<span id="amount_sum" style="color: #008000">¥{{ amount_sum }}</span>
     </div>
     <div slot="body">
+      <div v-if="partRecords.length > 0" style="margin-bottom: 1em; width: 50%;" > 
+        <div v-if="!editMode" @click="editMode = true" class="box button" >編集</div>
+        <div v-else v-on:click="editMode = false" class="box button">キャンセル</div>
+      </div>
     <ul class="list-group">
-        <li v-for="record in partRecords" v-bind:key="'row_task_' + record.id" class="list-group-item">
-        <label v-bind:for="'record_' + record.id">{{ record.return_date }}</label>
-        <label v-bind:for="'record_' + record.id">___¥{{ record.amount }}</label>
+        <li v-for="(record) in partRecords" v-bind:key="'row_task_' + record.id" v-bind:class="{ editMode: editMode }" class="list-group-item">
+            <label v-bind:for="'record_' + record.id">{{ record.return_date }}</label>
+            <label v-bind:for="'record_' + record.id">__¥{{ record.amount }}</label>
+            <input type="number" v-model="record.amount">
         </li>
     </ul>
     </div>
     <div slot="footer">
-      <div @click="showModal = false" class="box">確認</div>
+      <div v-if="!editMode" @click="showModal = false" class="box button">確認</div>
+      <div v-else v-on:click="updateRecords" @click="editMode = false" class="box updateButton button">更新</div>
     </div>
     
   </modal>
@@ -77,6 +85,8 @@ export default {
       day: "",
       isLogin: false,
       amount: 0,
+      amounts: [],
+      editMode: false,
     };
   },
   mounted: function() {
@@ -128,6 +138,7 @@ export default {
     setRecord: function() {
       this.amount_sum = 0;
       this.partRecords = [];
+      this.amounts = [];
       let month = this.monthCheck();
       let regDay = new RegExp(this.year + "-" + month);
       for (let i = 0; i < this.records.length; i++) {
@@ -135,8 +146,12 @@ export default {
         if (record.user_id == this.userId && regDay.test(record.return_date)) {
           this.amount_sum += record.amount;
           this.partRecords.push(record)
+          let record_amount = {record_id: record.id, amount: record.amount} 
+          this.amounts
+          this.amounts.push(record_amount)
         }
       }
+      console.log(this.amounts)
       console.log(this.partRecords);
     },
     shift:function(val){
@@ -159,9 +174,27 @@ export default {
         return this.month
       }
     },
+    pushAmount: function() {
+      this.partRecords[0].amount += 1
+    },
+    chengeAmount: function() {
+      console.log({ records:  this.partRecords })
+    },
+    updateRecords: function () {
+      axios.patch('/api/records/1', this.partRecords).then((response) => {
+
+      }, (error) => {
+        console.log(error);
+      });
+    },
   }
 }
 </script>
-<style lang="sass">
-    
+
+<style>
+
+.editMode {
+  background-color: gray;
+}
+
 </style>

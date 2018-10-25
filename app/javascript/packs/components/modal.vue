@@ -4,7 +4,7 @@
     <div class="modal-mask">
       <div class="modal-wrapper">
         <div class="modal-container">
-
+          <button @click="$emit('close')" type="button" class="close">&times;</button>
           <div class="modal-header">
             <slot name="header">
             </slot>
@@ -26,3 +26,4 @@
 
 </div>
 </template>
+

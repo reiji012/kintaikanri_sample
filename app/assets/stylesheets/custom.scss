@@ -187,6 +187,7 @@ body {
     display: table-cell;
     vertical-align: middle;
 
+
     /* スマートフォン */
     @media (max-width: 1000px) {
       font-size: 25px;
@@ -198,7 +199,7 @@ body {
     margin: 0px auto;
     padding: 20px 30px;
     background-color: #fff;
-    border-radius: 2px;
+    border-radius: 30px;
     box-shadow: 0 2px 8px rgba(0, 0, 0, .33);
     transition: all .3s ease;
     font-family: Helvetica, Arial, sans-serif;
@@ -209,6 +210,9 @@ body {
 //   border-bottom: 100px solid transparent;
   cursor: pointer;
   opacity: 1;
+
+
+
 
     /* スマートフォン */
     @media (max-width: 1000px) {
@@ -302,10 +306,27 @@ input {
 }
 	}
 	
+.editMode {
+  background-color: rgba(97, 97, 97, 0.33);
+}
 
+.updateButton {
+  background-color: #FF9933;
+}
 
+.button {
+  border-radius: 10px;
+}
 
+.headerItem {
+  font-weight: bold;
+}
 
+.showDate {
 
+  display:flex;
 
-	
+  .shiftButton {
+    font-size: 20px;
+  }
+}

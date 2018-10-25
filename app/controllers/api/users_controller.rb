@@ -19,6 +19,9 @@ class Api::UsersController < ApplicationController
 	# PATCH/PUT /users/1
 	def update
 		@user = User.find(params[:id])
+		puts @user
+		puts user_params
+		puts "hello"
 		if @user.update(user_params)
 			render :show, status: :ok
 		else
