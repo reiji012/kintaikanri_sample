@@ -43,11 +43,11 @@ end
 
   end
   
-  private
-
-      def record_params
-          params.require(:record).permit(
-              :user_id, :return_date, :amount
-          )
-      end
+	private
+	
+		def record_params
+				params.require(:record).permit(
+						:user_id, :return_date, :amount
+				)
+		end
 end

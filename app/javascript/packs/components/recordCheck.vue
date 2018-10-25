@@ -182,7 +182,8 @@ export default {
     },
     updateRecords: function () {
       axios.patch('/api/records/1', this.partRecords).then((response) => {
-
+        this.fetchRecords();
+        this.setRecord();
       }, (error) => {
         console.log(error);
       });
