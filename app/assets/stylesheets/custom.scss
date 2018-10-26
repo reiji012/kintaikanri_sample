@@ -186,6 +186,7 @@ body {
   .modal-wrapper {
     display: table-cell;
     vertical-align: middle;
+    border-radius: 100px;
 
 
     /* スマートフォン */
@@ -195,6 +196,7 @@ body {
   }
   
   .modal-container {
+    border-radius: 100px;
     width: 300px;
     margin: 0px auto;
     padding: 20px 30px;
