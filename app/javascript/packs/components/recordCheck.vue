@@ -187,9 +187,10 @@ export default {
       });
     },
     recordReset: function() {
-        this.fetchUsers();
         this.fetchRecords();
         this.setRecord();
+        this.showModal = false
+        this.showModal = true
     }
   },
   computed: {

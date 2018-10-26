@@ -4,6 +4,7 @@ import Index from '../components/index.vue'
 import RecordCheck from '../components/recordCheck.vue'
 import UserRegistration from '../components/userRegistration.vue'
 import Login from '../components/login.vue'
+import userEdit from '../components/userEdit.vue'
 import Cookies from 'js-cookie';
 Vue.use(VueRouter)
 
@@ -17,6 +18,7 @@ var router = new VueRouter({
     { path: '/recordCheck', component: RecordCheck },
     { path: '/userRegistration', component: UserRegistration },
     { path: '/login', component: Login },
+    { path: '/userEdit', component: userEdit },
   ]
 });
 
