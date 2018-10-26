@@ -1,19 +1,14 @@
 <template>
   <div>
     <div id="record">
-    <div v-for="user in users" v-bind:key="'row_user_' + user.id" @click="showmodal(user)" id="show-modal" class="box userBox">
-      <label v-bind:for="'user_' +user.id">{{ user.name }}</label>
-    </div>
+      <div v-for="user in users" v-bind:key="'row_user_' + user.id" @click="showmodal(user)" id="show-modal" class="box userBox">
+        <label v-bind:for="'user_' +user.id">{{ user.name }}</label>
+      </div>
     </div>
   <!-- use the modal component, pass in the prop -->
   <modal v-if="showModal" @close="showModal = false">
-    <!--
-      you can use custom content here to overwrite
-      default content
-    -->
 
     <div slot="header">
-      <button @click="pushAmount">+</button>
       <div class="showDate">
         <!-- 年月表示 -->
         <div v-cloak class="headerItem monthYear">
@@ -35,23 +30,24 @@
         </div>
         
       </div>
-      帰社記録_帰社費用合計<span id="amount_sum" style="color: #008000">¥{{ amount_sum }}</span>
+      帰社記録_帰社費用合計<span id="amount_sum" style="color: #008000">¥{{ amountSum }}</span>
     </div>
     <div slot="body">
       <div v-if="partRecords.length > 0" style="margin-bottom: 1em; width: 50%;" > 
         <div v-if="!editMode" @click="editMode = true" class="box button" >編集</div>
-        <div v-else v-on:click="editMode = false" class="box button">キャンセル</div>
+        <div v-else v-on:click="editMode = false" @click="recordReset()" class="box button">キャンセル</div>
       </div>
-    <ul class="list-group">
-        <li v-for="(record) in partRecords" v-bind:key="'row_task_' + record.id" v-bind:class="{ editMode: editMode }" class="list-group-item">
-            <label v-bind:for="'record_' + record.id">{{ record.return_date }}</label>
-            <label v-bind:for="'record_' + record.id">__¥{{ record.amount }}</label>
-            <input type="number" v-model="record.amount">
+      <ul class="list-group">
+        <li v-for="record in partRecords" v-bind:key="'row_task_' + record.id" v-bind:class="{ editMode: editMode }" class="list-group-item">
+          <label v-bind:for="'record_' + record.id">{{ record.return_date }}</label>
+          <label v-if="!editMode" v-bind:for="'record_' + record.id">__¥{{ record.amount }}</label>
+          <input v-else type="number" v-model="record.amount">
+          
         </li>
-    </ul>
+      </ul>
     </div>
     <div slot="footer">
-      <div v-if="!editMode" @click="showModal = false" class="box button">確認</div>
+      <div v-if="!editMode" @click="showModal = false" v-on:click="setRecord()" class="box button">確認</div>
       <div v-else v-on:click="updateRecords" @click="editMode = false" class="box updateButton button">更新</div>
     </div>
     
@@ -101,6 +97,7 @@ export default {
   methods: {
     fetchUsers: function() {
       axios.get('/api/users').then((response) => {
+        this.users = [];
         for(var i = 0; i < response.data.users.length; i++) {
           this.users.push(response.data.users[i]);
         }
@@ -110,6 +107,7 @@ export default {
     },
     fetchRecords: function() {
       axios.get('/api/records').then((response) => {
+        this.records = [];
         for(var i = 0; i < response.data.records.length; i++) {
           this.records.push(response.data.records[i]);
         }
@@ -122,6 +120,7 @@ export default {
       this.userId = user.id;
       this.setRecord();
       this.showModal = true;
+      console.log(this.amount_sum)
     },
     recordCheck: function(record) {
       let regDay = new RegExp(this.day);
@@ -136,7 +135,6 @@ export default {
       }
     },
     setRecord: function() {
-      this.amount_sum = 0;
       this.partRecords = [];
       this.amounts = [];
       let month = this.monthCheck();
@@ -144,7 +142,6 @@ export default {
       for (let i = 0; i < this.records.length; i++) {
         let record = this.records[i];
         if (record.user_id == this.userId && regDay.test(record.return_date)) {
-          this.amount_sum += record.amount;
           this.partRecords.push(record)
           let record_amount = {record_id: record.id, amount: record.amount} 
           this.amounts
@@ -182,11 +179,27 @@ export default {
     },
     updateRecords: function () {
       axios.patch('/api/records/1', this.partRecords).then((response) => {
+        this.fetchUsers();
         this.fetchRecords();
         this.setRecord();
       }, (error) => {
         console.log(error);
       });
+    },
+    recordReset: function() {
+        this.fetchUsers();
+        this.fetchRecords();
+        this.setRecord();
+    }
+  },
+  computed: {
+    amountSum: function() {
+      this.amount_sum = 0;
+      for (let i = 0; i < this.partRecords.length; i++) {
+        let record = this.partRecords[i]
+        this.amount_sum += Number(record.amount);
+      }
+      return this.amount_sum
     },
   }
 }

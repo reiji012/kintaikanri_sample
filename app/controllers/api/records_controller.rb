@@ -34,11 +34,16 @@ end
            :amount
           )
       if @record.update_attributes(record)
-          render :show, status: :ok
-      else
-          render json: @record.errors, status: :unprocessable_entity
+				@isUpdated = true
+			else
+				@isUpdated = false
 			end
-			
+
+			if @isUpdated 
+			render :show, status: :ok
+			else
+			render json: @record.errors, status: :unprocessable_entity
+			end
 		end
 
   end
