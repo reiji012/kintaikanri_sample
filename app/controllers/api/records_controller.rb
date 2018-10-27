@@ -5,7 +5,9 @@ def index
 end
 
   #POST /users
-  def create
+	def create
+		puts record_params
+		puts "hey"
 		@record = ReturnTime.new(record_params)
 		user = @record.user
 		if user.return_times.find_by(return_date: record_params[:return_date])
@@ -22,21 +24,35 @@ end
     end
   end
 
-  # PATCH/PUT /users/1
-  def update
-      @record = ReturnTime.find(params[:id])
-      if @record.update(record_params)
-          render :show, status: :ok
-      else
-          render json: @record.errors, status: :unprocessable_entity
-      end
+  # PATCH/PUT /records/1
+	def update
+	
+		for records in params[:_json] do
+		@record = ReturnTime.find_by(id: records[:id])
+			puts @record
+			record = records.permit(
+           :amount
+          )
+      if @record.update_attributes(record)
+				@isUpdated = true
+			else
+				@isUpdated = false
+			end
+
+			if @isUpdated 
+			render :show, status: :ok
+			else
+			render json: @record.errors, status: :unprocessable_entity
+			end
+		end
+
   end
   
-  private
-
-      def record_params
-          params.require(:record).permit(
-              :user_id, :return_date, :amount
-          )
-      end
+	private
+	
+		def record_params
+				params.require(:record).permit(
+						:user_id, :return_date, :amount
+				)
+		end
 end

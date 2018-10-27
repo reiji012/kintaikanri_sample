@@ -188,6 +188,7 @@ body {
     vertical-align: middle;
     border-radius: 100px;
 
+
     /* スマートフォン */
     @media (max-width: 1000px) {
       font-size: 25px;
@@ -211,6 +212,9 @@ body {
 //   border-bottom: 100px solid transparent;
   cursor: pointer;
   opacity: 1;
+
+
+
 
     /* スマートフォン */
     @media (max-width: 1000px) {
@@ -304,10 +308,27 @@ input {
 }
 	}
 	
+.editMode {
+  background-color: rgba(97, 97, 97, 0.33);
+}
 
+.updateButton {
+  background-color: #FF9933;
+}
 
+.button {
+  border-radius: 10px;
+}
 
+.headerItem {
+  font-weight: bold;
+}
 
+.showDate {
 
+  display:flex;
 
-	
+  .shiftButton {
+    font-size: 20px;
+  }
+}

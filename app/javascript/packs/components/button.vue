@@ -15,7 +15,11 @@
     <slot name="settingButton">
     <router-link to="userRegistration">
       <div id="userPut" class="box" style="border-radius: 20px; float: right;">
-        ユーザー設定
+        登録
+      </div>
+    </router-link><router-link to="userEdit">
+      <div id="userPut" class="box" style="border-radius: 20px; float: right;">
+        編集
       </div>
     </router-link>
     </slot>
