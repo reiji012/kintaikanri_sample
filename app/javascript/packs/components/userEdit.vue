@@ -14,7 +14,9 @@
         <tr>
             <th>{{ user.id }}</th>
             <td>{{ user.name }}</td>
-            <td>{{ user.amount }}</td>
+            <td>
+              <input v-model="user.amount" type="number" />
+            </td>
             <td>{{ partRecords.length }}</td>
         </tr>
     </tbody>
