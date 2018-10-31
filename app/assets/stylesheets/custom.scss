@@ -332,3 +332,17 @@ input {
     font-size: 20px;
   }
 }
+
+.userList {
+  border-radius: 10px;
+  margin-bottom: 2em;
+  -webkit-transition: all .3s ease;
+  -moz-transition: all .3s ease;
+  -ms-transition: all .3s ease;
+  -o-transition: all .3s ease;
+  transition: all .3s ease;
+}
+
+.userList:hover {
+  background-color: #dcdcdc;
+}

@@ -1,23 +1,43 @@
 <template>
   <div>    
-    {{ userCount }}
     <table class="table">
     <thead>
+      <div class="showDate">
+        <!-- 年月表示 -->
+        <div v-cloak class="headerItem monthYear">
+          <div class="dateItem border table ">
+            <span class="middle">{{year}}年{{this.month}}月</span>
+          </div>
+        </div>
+        <!-- 前月移動ボタン -->
+        <div class="headerItem shiftButton"  style="margin-right: 1em; margin-left: 1em;">
+          <div class="dateItem border table button" v-on:click="shift('back')">
+            <p>＜</p>
+          </div>
+        </div>
+        <!-- 次月移動 -->
+        <div class="headerItem shiftButton">
+          <div class="dateItem border table button" v-on:click="shift('next')">
+            <p>＞</p>
+          </div>
+        </div>
+        
+      </div>
         <tr>
             <th>登録ID</th>
             <th>名前</th>
             <th>帰社費用</th>
-            <th>帰社日数</th>
+            <th>月帰社日数</th>
+            <th>月合計帰社費用</th>
         </tr>
     </thead>
-    <tbody v-for="user in users" v-bind:key="user.id" v-on="countDate(user)">
+    <tbody v-for="user in users" v-bind:key="user.id" v-on="countDate(user)" class="userList">
         <tr>
             <th>{{ user.id }}</th>
             <td>{{ user.name }}</td>
-            <td>
-              <input v-model="user.amount" type="number" />
-            </td>
-            <td>{{ partRecords.length }}</td>
+            <td>{{ user.amount }}</td>
+            <td>{{ countDate(user, "date") }}日</td>
+            <td>¥{{ countDate(user, "amount") }}</td>
         </tr>
     </tbody>
 </table>
@@ -108,9 +128,11 @@ export default {
         }
       }
     },
-    setRecord: function() {
+    setRecord: function(userId) {
       console.log("setRecord around")
-      this.countDates = 0;
+      let countDate = 0;
+      let countAmount = 0;
+      let partRecord = [];
       this.amount = 0;
       let month = this.monthCheck();
       let regDay = new RegExp(this.year + "-" + month);
@@ -118,11 +140,13 @@ export default {
         console.log(i)
         let record = this.records[i];
         console.log(record);
-        if (record.user_id == this.userId && regDay.test(record.return_date)) {
-          this.countDates += 1;
-          this.amount += record.amount
+        if (record.user_id == userId && regDay.test(record.return_date)) {
+          countDate += 1
+          countAmount += record.amount
         }
       }
+      partRecord = [countDate, countAmount]
+      return partRecord;
     },
     shift:function(val){
         if('back'===val){
@@ -150,9 +174,18 @@ export default {
         this.showModal = false
         this.showModal = true
     },
-    countDate: function(user) {
-      this.userId = user.id
+    countDate: function(user, value) {
+      let record = this.setRecord(user.id)
+      if (value === "date") {
+        return record[0]
+      } else {
+        return record[1]
+      }
       console.log("countDate around")
+    },
+    countAmount: function(user) {
+      let record = this.setRecord
+
     }
   },
   computed: {

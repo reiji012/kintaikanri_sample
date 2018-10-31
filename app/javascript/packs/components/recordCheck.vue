@@ -168,7 +168,7 @@ export default {
       if (month.length == 1) {
         return "0" + month;
       } else {
-        return this.month
+        return this.month;
       }
     },
     pushAmount: function() {
@@ -189,27 +189,19 @@ export default {
     recordReset: function() {
         this.fetchRecords();
         this.setRecord();
-        this.showModal = false
-        this.showModal = true
+        this.showModal = false;
+        this.showModal = true;
     }
   },
   computed: {
     amountSum: function() {
       this.amount_sum = 0;
       for (let i = 0; i < this.partRecords.length; i++) {
-        let record = this.partRecords[i]
+        let record = this.partRecords[i];
         this.amount_sum += Number(record.amount);
       }
-      return this.amount_sum
+      return this.amount_sum;
     },
   }
 }
 </script>
-
-<style>
-
-.editMode {
-  background-color: gray;
-}
-
-</style>
