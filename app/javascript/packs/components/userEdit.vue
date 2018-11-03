@@ -1,5 +1,5 @@
 <template>
-  <div>    
+  <div class="">    
     <table class="table">
     <thead>
       <div class="showDate">
@@ -31,7 +31,7 @@
             <th>月合計帰社費用</th>
         </tr>
     </thead>
-    <tbody v-for="user in users" v-bind:key="user.id" v-on="countDate(user)" class="userList">
+    <tbody v-for="user in users" v-bind:key="user.id" v-on="countDate(user)" @click="showmodal(user)" class="userList">
         <tr>
             <th>{{ user.id }}</th>
             <td>{{ user.name }}</td>
@@ -41,6 +41,34 @@
         </tr>
     </tbody>
 </table>
+
+<modal v-if="showModal" @close="showModal = false" style="width: 400px;">
+    <!--
+      you can use custom content here to overwrite
+      default content
+    -->
+    <h3 slot="header">{{ userName }}</h3>
+
+    <div slot="body">
+      <div class = "row">
+	 
+  <div >
+      <label >名前</label>
+      <input v-model="user.name" class="form-control" type="text" v-on:input="update_furigana"/>
+
+      <label >仮名（ひらがな）</label>
+      <input v-model="user.kana" class="form-control" type="text" />
+      <label for="user_password">基本帰社費用</label>
+      <input v-model="user.amount" class="form-control" />
+
+      <input v-on:click="checkForm" :disabled="processing" type="submit" value="登録" class="btn btn-primary" />
+  </div>
+</div>
+    </div>
+    
+    <div slot="footer">
+    </div>
+  </modal>
   </div>
   
 </template>
@@ -58,6 +86,7 @@ export default {
   data: function() {
     return {
       showModal: false,
+      user: [],
       users: [],
       records: [],
       partRecords: [],
@@ -112,6 +141,7 @@ export default {
     showmodal: function(user) {
       this.userName = user.name;
       this.userId = user.id;
+      this.user = user;
       this.setRecord();
       this.showModal = true;
       console.log(this.amount_sum)
