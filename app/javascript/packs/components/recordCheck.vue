@@ -59,7 +59,7 @@
 <script>
 import Switch from "./button.vue";
 import Modal from "./modal.vue";
-import axios from 'axios';
+import axios from "axios";
 
 export default {
   components: {
@@ -82,8 +82,15 @@ export default {
       isLogin: false,
       amount: 0,
       amounts: [],
-      editMode: false,
+      editMode: false
     };
+  },
+  watch: {
+    showModal: function() {
+      if (this.showModal === true) {
+        this.editMode = false;
+      }
+    }
   },
   mounted: function() {
     this.fetchUsers();
@@ -96,38 +103,44 @@ export default {
   },
   methods: {
     fetchUsers: function() {
-      axios.get('/api/users').then((response) => {
-        this.users = [];
-        for(var i = 0; i < response.data.users.length; i++) {
-          this.users.push(response.data.users[i]);
-        }
-      }, (error) => {
+      axios.get("/api/users").then(
+        response => {
+          this.users = [];
+          for (var i = 0; i < response.data.users.length; i++) {
+            this.users.push(response.data.users[i]);
+          }
+        },
+        error => {
           console.log(error);
-        });
+        }
+      );
     },
     fetchRecords: function() {
-      axios.get('/api/records').then((response) => {
-        this.records = [];
-        for(var i = 0; i < response.data.records.length; i++) {
-          this.records.push(response.data.records[i]);
-        }
-      }, (error) => {
+      axios.get("/api/records").then(
+        response => {
+          this.records = [];
+          for (var i = 0; i < response.data.records.length; i++) {
+            this.records.push(response.data.records[i]);
+          }
+        },
+        error => {
           console.log(error);
-        });
+        }
+      );
     },
     showmodal: function(user) {
       this.userName = user.name;
       this.userId = user.id;
       this.setRecord();
       this.showModal = true;
-      console.log(this.amount_sum)
+      console.log(this.amount_sum);
     },
     recordCheck: function(record) {
       let regDay = new RegExp(this.day);
       if (record.user_id != userId) {
         return false;
       } else {
-        if (!(regDay.test(record.return_date))) {
+        if (!regDay.test(record.return_date)) {
           return false;
         } else {
           return true;
@@ -142,26 +155,26 @@ export default {
       for (let i = 0; i < this.records.length; i++) {
         let record = this.records[i];
         if (record.user_id == this.userId && regDay.test(record.return_date)) {
-          this.partRecords.push(record)
-          let record_amount = {record_id: record.id, amount: record.amount} 
-          this.amounts
-          this.amounts.push(record_amount)
+          this.partRecords.push(record);
+          let record_amount = { record_id: record.id, amount: record.amount };
+          this.amounts;
+          this.amounts.push(record_amount);
         }
       }
-      console.log(this.amounts)
+      console.log(this.amounts);
       console.log(this.partRecords);
     },
-    shift:function(val){
-        if('back'===val){
-          this.month = (this.month===1)?12:this.month-1;
-          this.year = (this.month===12)?this.year-1:this.year;
-        }else{
-          this.month = (this.month===12)?1:this.month+1;
-          this.year = (this.month===1)?this.year+1:this.year;
-        }
-        this.day =`${this.year}-${this.month}`
-        console.log(this.day)
-        this.setRecord();
+    shift: function(val) {
+      if ("back" === val) {
+        this.month = this.month === 1 ? 12 : this.month - 1;
+        this.year = this.month === 12 ? this.year - 1 : this.year;
+      } else {
+        this.month = this.month === 12 ? 1 : this.month + 1;
+        this.year = this.month === 1 ? this.year + 1 : this.year;
+      }
+      this.day = `${this.year}-${this.month}`;
+      console.log(this.day);
+      this.setRecord();
     },
     monthCheck: function() {
       let month = this.month + "";
@@ -172,25 +185,28 @@ export default {
       }
     },
     pushAmount: function() {
-      this.partRecords[0].amount += 1
+      this.partRecords[0].amount += 1;
     },
     chengeAmount: function() {
-      console.log({ records:  this.partRecords })
+      console.log({ records: this.partRecords });
     },
-    updateRecords: function () {
-      axios.patch('/api/records/1', this.partRecords).then((response) => {
-        this.fetchUsers();
-        this.fetchRecords();
-        this.setRecord();
-      }, (error) => {
-        console.log(error);
-      });
+    updateRecords: function() {
+      axios.patch("/api/records/1", this.partRecords).then(
+        response => {
+          this.fetchUsers();
+          this.fetchRecords();
+          this.setRecord();
+        },
+        error => {
+          console.log(error);
+        }
+      );
     },
     recordReset: function() {
-        this.fetchRecords();
-        this.setRecord();
-        this.showModal = false;
-        this.showModal = true;
+      this.fetchRecords();
+      this.setRecord();
+      this.showModal = false;
+      this.showModal = true;
     }
   },
   computed: {
@@ -201,7 +217,7 @@ export default {
         this.amount_sum += Number(record.amount);
       }
       return this.amount_sum;
-    },
+    }
   }
-}
+};
 </script>
