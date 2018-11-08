@@ -7,7 +7,7 @@ Rails.application.routes.draw do
   get '/userEdit', to: 'home#index'
 
   namespace :api, format: 'json' do
-    resources :users, only: [:index, :create, :update]
+    resources :users, only: [:index, :create, :update, :destroy]
   end
 
   namespace :api, format: 'json' do

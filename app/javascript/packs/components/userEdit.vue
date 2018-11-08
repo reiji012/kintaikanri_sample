@@ -52,16 +52,19 @@
     <div slot="body">
       <div class = "row">
 	 
-  <div >
-      <label >名前</label>
-      <input v-model="user.name" class="form-control" type="text" v-on:input="update_furigana"/>
+  <div>
+    <div @click="deleteUser()" class="box deleteButton button" style="float: right;">
+      削除
+    </div>
+    <label >名前</label>
+    <input v-model="user.name" class="form-control" type="text" v-on:input="update_furigana"/>
 
-      <label >仮名（ひらがな）</label>
-      <input v-model="user.kana" class="form-control" type="text" />
-      <label for="user_password">基本帰社費用</label>
-      <input v-model="user.amount" class="form-control" />
+    <label >仮名（ひらがな）</label>
+    <input v-model="user.kana" class="form-control" type="text" />
+    <label for="user_password">基本帰社費用</label>
+    <input v-model="user.amount" class="form-control" />
 
-      <input v-on:click="updateUser" :disabled="processing" type="submit" value="登録" class="btn btn-primary" />
+    <input v-on:click="updateUser" :disabled="processing" type="submit" value="登録" class="btn btn-primary" />
   </div>
 </div>
     </div>
@@ -224,6 +227,19 @@ export default {
     },
     updateUser: function(user) {
       axios.patch(`/api/users/${this.userId}`, this.user).then(
+        response => {
+          this.fetchUsers();
+          this.fetchRecords();
+          this.setRecord();
+          this.showModal = false;
+        },
+        error => {
+          console.log(error);
+        }
+      );
+    },
+    deleteUser: function(user) {
+      axios.delete(`/api/users/${this.userId}`, this.user).then(
         response => {
           this.fetchUsers();
           this.fetchRecords();

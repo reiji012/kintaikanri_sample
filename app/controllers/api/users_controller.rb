@@ -28,6 +28,12 @@ class Api::UsersController < ApplicationController
 			render json: @user.errors, status: :unprocessable_entity
 		end
 	end
+
+	def destroy
+    User.find(params[:id]).destroy 
+		flash[:success] = "User deleted"
+		render json: {"message": "user destroy"}
+  end
 	
 	private
 
