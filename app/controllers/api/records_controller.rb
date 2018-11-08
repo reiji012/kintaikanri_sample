@@ -45,9 +45,14 @@ end
 			render json: @record.errors, status: :unprocessable_entity
 			end
 		end
-
-  end
-  
+	end
+	
+	def destroy
+			ReturnTime.find(params[:id]).destroy
+			flash[:success] = "Record deleted"
+			render json: {"message": "record destroy"}
+		end
+	
 	private
 	
 		def record_params

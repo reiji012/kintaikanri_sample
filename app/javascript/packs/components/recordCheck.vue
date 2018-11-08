@@ -38,10 +38,14 @@
         <div v-else v-on:click="editMode = false" @click="recordReset()" class="box button">キャンセル</div>
       </div>
       <ul class="list-group">
-        <li v-for="record in partRecords" v-bind:key="'row_task_' + record.id" v-bind:class="{ editMode: editMode }" class="list-group-item">
+        <li v-for="record in partRecords" v-bind:key="'row_task_' + record.id" v-bind:id="'record_' + record.id" v-bind:class="{ editMode: editMode }" class="list-group-item">
           <label v-bind:for="'record_' + record.id">{{ record.return_date }}</label>
+          <div v-if="editMode" @click="deleteRecord(record)" class="box deleteButton button" style="float: right; margin-bottom: 0em;">
+            削除
+          </div>
           <label v-if="!editMode" v-bind:for="'record_' + record.id">__¥{{ record.amount }}</label>
           <input v-else type="number" v-model="record.amount">
+
           
         </li>
       </ul>
@@ -74,6 +78,7 @@ export default {
       partRecords: [],
       userName: "test",
       userId: "",
+      recordId: "",
       amount_sum: 0,
       year: "",
       month: "",
@@ -207,6 +212,20 @@ export default {
       this.setRecord();
       this.showModal = false;
       this.showModal = true;
+    },
+    deleteRecord: function(record) {
+      this.recordId = record.id
+      axios.delete(`/api/records/${this.recordId}`, this.record).then(
+        response => {
+          this.fetchUsers();
+          this.fetchRecords();
+          this.setRecord();
+          this.partRecords.splice(this.recordId)
+        },
+        error => {
+          console.log(error);
+        }
+      );
     }
   },
   computed: {

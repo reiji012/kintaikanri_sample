@@ -11,6 +11,6 @@ Rails.application.routes.draw do
   end
 
   namespace :api, format: 'json' do
-    resources :records, only: [:index, :create, :update]
+    resources :records, only: [:index, :create, :update, :destroy]
   end
 end
