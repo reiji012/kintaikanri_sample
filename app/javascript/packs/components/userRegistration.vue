@@ -5,20 +5,20 @@
 		<p>{{ responseMessage }}</p>
 		<p v-if="errors.length">
     <b>入力エラーがあります:</b>
-    <ul>
-      <li v-for="error in errors" :key="error">{{ error }}</li>
-    </ul>
-  </p>
-      <label >名前</label>
-      <input v-model="name" class="form-control" type="text" v-on:input="update_furigana"/>
+			<ul>
+				<li v-for="error in errors" :key="error">{{ error }}</li>
+			</ul>
+		</p>
+		<label >名前</label>
+		<input v-model="name" class="form-control" type="text" v-on:input="update_furigana"/>
 
-      <label >仮名（ひらがな）</label>
-      <input v-model="furigana" class="form-control" type="text" />
+		<label >仮名（ひらがな）</label>
+		<input v-model="furigana" class="form-control" type="text" />
 
-      <label for="user_password">基本帰社費用</label>
-      <input v-model="amount" class="form-control" type="number" />
+		<label for="user_password">基本帰社費用</label>
+		<input v-model="amount" class="form-control" type="number" />
 
-      <input v-on:click="checkForm" :disabled="processing" type="submit" value="登録" class="btn btn-primary" />
+		<input v-on:click="checkForm" :disabled="processing" type="submit" value="登録" class="btn btn-primary" />
   </div>
 </div>
 </template>

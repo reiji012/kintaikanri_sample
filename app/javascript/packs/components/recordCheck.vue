@@ -29,7 +29,6 @@
             <p>＞</p>
           </div>
         </div>
-        
       </div>
       帰社記録_帰社費用合計<span id="amount_sum" style="color: #008000">¥{{ amountSum }}</span>
     </div>
@@ -46,8 +45,6 @@
           </div>
           <label v-if="!editMode" v-bind:for="'record_' + record.id" v-bind:class="{differenceAmount: userAmount != record.amount}">¥{{ record.amount }}</label>
           <input v-else type="number" v-model="record.amount">
-
-          
         </li>
       </ul>
     </div>
@@ -55,7 +52,6 @@
       <div v-if="!editMode" @click="showModal = false" v-on:click="setRecord()" class="box button">確認</div>
       <div v-else v-on:click="updateRecords" @click="editMode = false" class="box updateButton button">更新</div>
     </div>
-    
   </modal>
 
   <loading-modal v-show="loading">
@@ -109,7 +105,7 @@ export default {
       if (this.showModal === true) {
         this.editMode = false;
       }
-    }
+    },
   },
   mounted: function() {
     this.records = [];
@@ -156,7 +152,7 @@ export default {
       this.userAmount = user.amount
       this.setRecord();
       this.showModal = true;
-      console.log(this.amount_sum);
+      console.log(this.partRecords);
     },
     recordCheck: function(record) {
       let regDay = new RegExp(this.day);
@@ -185,6 +181,7 @@ export default {
           this.amounts.push(record_amount);
         }
       }
+      console.log(this.partRecords);
     },
     shift: function(val) {
       if ("back" === val) {
@@ -196,6 +193,7 @@ export default {
       }
       this.day = `${this.year}-${this.month}`;
       this.setRecord();
+      console.log(this.partRecords);
     },
     monthCheck: function() {
       let month = this.month + "";
@@ -237,6 +235,7 @@ export default {
     setDeleteRecords: function(record, index) {
       this.deleteRecords.push(record)
       this.partRecords.splice(index, 1);
+      console.log(this.partRecords);
     },
     deleteRecord: function() {
       console.log(this.deleteRecords)

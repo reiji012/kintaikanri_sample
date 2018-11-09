@@ -1,9 +1,9 @@
 class Api::UsersController < ApplicationController
 
-    #GET \users
-    def index
-      @users = User.order('kana ASC')
-		end
+	#GET \users
+	def index
+		@users = User.order('kana ASC')
+	end
 
 	#POST /users
 	def create
@@ -30,7 +30,7 @@ class Api::UsersController < ApplicationController
 	end
 
 	def destroy
-    User.find(params[:id]).destroy 
+    User.find(params[:id]).destroy
 		flash[:success] = "User deleted"
 		render json: {"message": "user destroy"}
   end
