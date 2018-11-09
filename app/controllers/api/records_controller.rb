@@ -26,9 +26,9 @@ end
 
   # PATCH/PUT /records/1
 	def update
-	
+			puts params
 		for records in params[:_json] do
-		@record = ReturnTime.find_by(id: records[:id])
+			@record = ReturnTime.find_by(id: records[:id])
 			puts @record
 			record = records.permit(
            :amount
@@ -38,20 +38,22 @@ end
 			else
 				@isUpdated = false
 			end
-
-			if @isUpdated 
+		end
+		if @isUpdated 
 			render :show, status: :ok
 			else
 			render json: @record.errors, status: :unprocessable_entity
-			end
 		end
 	end
 	
 	def destroy
-			ReturnTime.find(params[:id]).destroy
-			flash[:success] = "Record deleted"
-			render json: {"message": "record destroy"}
-		end
+		puts "hello"
+		puts params
+		puts "hey"
+		ReturnTime.find(params[:id]).destroy
+		flash[:success] = "Record deleted"
+		render json: {"message": "record destroy"}
+	end
 	
 	private
 	

@@ -82,16 +82,15 @@ export default {
 			});
 		},
 		update_furigana (input) {
-			this.history.push(input.target.value)
-			this.furigana = historykana(this.history)
+			this.history.push(input.target.value);
+			this.furigana = historykana(this.history);
 		},
 		submit() {
       if (this.processing) return;
       this.processing = true;
-      this.doSomething()
-        .then(() => {
-          this.processing = false;
-        });
+      this.doSomething().then(() => {
+        this.processing = false;
+      });
     },
     doSomething() {
       return new Promise((resolve) => {

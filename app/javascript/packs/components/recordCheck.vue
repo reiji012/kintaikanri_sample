@@ -5,8 +5,9 @@
         <label v-bind:for="'user_' +user.id">{{ user.name }}</label>
       </div>
     </div>
+
   <!-- use the modal component, pass in the prop -->
-  <modal v-if="showModal" @close="showModal = false">
+  <modal v-if="showModal" @close="showModal = false" v-show="!loading">
 
     <div slot="header">
       <div class="showDate">
@@ -34,16 +35,16 @@
     </div>
     <div slot="body">
       <div v-if="partRecords.length > 0" style="margin-bottom: 1em; width: 50%;" > 
-        <div v-if="!editMode" @click="editMode = true" class="box button" >編集</div>
-        <div v-else v-on:click="editMode = false" @click="recordReset()" class="box button">キャンセル</div>
+        <div v-if="!editMode" @click="editMode = true" v-on:click="recordBackup = partRecords" class="box button" >編集</div>
       </div>
+        <div v-if="editMode" v-on:click="editMode = false" @click="recordReset()" class="box button" style="margin-bottom: 1em; width: 50%;">キャンセル</div>
       <ul class="list-group">
-        <li v-for="record in partRecords" v-bind:key="'row_task_' + record.id" v-bind:id="'record_' + record.id" v-bind:class="{ editMode: editMode }" class="list-group-item">
-          <label v-bind:for="'record_' + record.id">{{ record.return_date }}</label>
-          <div v-if="editMode" @click="deleteRecord(record)" class="box deleteButton button" style="float: right; margin-bottom: 0em;">
+        <li v-for="(record, index) in partRecords" v-bind:key="'row_task_' + record.id" v-bind:id="'record_' + record.id" v-bind:class="{ editMode: editMode }" class="list-group-item">
+          <label v-bind:for="'record_' + record.id">{{ record.return_date }}__</label>
+          <div v-if="editMode" @click="setDeleteRecords(record, index)" class="box deleteButton button" style="float: right; margin-bottom: 0em;">
             削除
           </div>
-          <label v-if="!editMode" v-bind:for="'record_' + record.id">__¥{{ record.amount }}</label>
+          <label v-if="!editMode" v-bind:for="'record_' + record.id" v-bind:class="{differenceAmount: userAmount != record.amount}">¥{{ record.amount }}</label>
           <input v-else type="number" v-model="record.amount">
 
           
@@ -56,6 +57,12 @@
     </div>
     
   </modal>
+
+  <loading-modal v-show="loading">
+    <div slot="body">
+      {{ loadingMessage }}
+    </div>
+  </loading-modal>
 </div>
   
 </template>
@@ -64,18 +71,22 @@
 import Switch from "./button.vue";
 import Modal from "./modal.vue";
 import axios from "axios";
+import LoadingModal from "./loadingModal.vue"
 
 export default {
   components: {
     switchButton: Switch,
-    modal: Modal
+    modal: Modal,
+    loadingModal: LoadingModal,
   },
   data: function() {
     return {
       showModal: false,
       users: [],
       records: [],
+      deleteRecords: [],
       partRecords: [],
+      recordBackup: [],
       userName: "test",
       userId: "",
       recordId: "",
@@ -87,7 +98,10 @@ export default {
       isLogin: false,
       amount: 0,
       amounts: [],
-      editMode: false
+      editMode: false,
+      loading: false,
+      loadingMessage: "",
+      userAmount: 0,
     };
   },
   watch: {
@@ -98,6 +112,7 @@ export default {
     }
   },
   mounted: function() {
+    this.records = [];
     this.fetchUsers();
     this.fetchRecords();
     let day = new Date();
@@ -114,6 +129,7 @@ export default {
           for (var i = 0; i < response.data.users.length; i++) {
             this.users.push(response.data.users[i]);
           }
+          this.loading = false;
         },
         error => {
           console.log(error);
@@ -127,6 +143,7 @@ export default {
           for (var i = 0; i < response.data.records.length; i++) {
             this.records.push(response.data.records[i]);
           }
+          this.loading = false
         },
         error => {
           console.log(error);
@@ -136,6 +153,7 @@ export default {
     showmodal: function(user) {
       this.userName = user.name;
       this.userId = user.id;
+      this.userAmount = user.amount
       this.setRecord();
       this.showModal = true;
       console.log(this.amount_sum);
@@ -153,6 +171,7 @@ export default {
       }
     },
     setRecord: function() {
+      this.fetchRecords();
       this.partRecords = [];
       this.amounts = [];
       let month = this.monthCheck();
@@ -166,8 +185,6 @@ export default {
           this.amounts.push(record_amount);
         }
       }
-      console.log(this.amounts);
-      console.log(this.partRecords);
     },
     shift: function(val) {
       if ("back" === val) {
@@ -178,7 +195,6 @@ export default {
         this.year = this.month === 1 ? this.year + 1 : this.year;
       }
       this.day = `${this.year}-${this.month}`;
-      console.log(this.day);
       this.setRecord();
     },
     monthCheck: function() {
@@ -196,36 +212,47 @@ export default {
       console.log({ records: this.partRecords });
     },
     updateRecords: function() {
+      this.loadingMessage = "変更内容を登録中....."
+      this.loading = true;
       axios.patch("/api/records/1", this.partRecords).then(
         response => {
-          this.fetchUsers();
-          this.fetchRecords();
-          this.setRecord();
+          this.loading = false;
         },
         error => {
           console.log(error);
         }
       );
+      if (this.deleteRecords.length > 0) {
+        this.deleteRecord();
+      } 
+      console.log(this.partRecords);
     },
     recordReset: function() {
       this.fetchRecords();
       this.setRecord();
       this.showModal = false;
       this.showModal = true;
+      this.deleteRecords = [];
     },
-    deleteRecord: function(record) {
-      this.recordId = record.id
-      axios.delete(`/api/records/${this.recordId}`, this.record).then(
-        response => {
-          this.fetchUsers();
-          this.fetchRecords();
-          this.setRecord();
-          this.partRecords.splice(this.recordId)
-        },
-        error => {
-          console.log(error);
-        }
-      );
+    setDeleteRecords: function(record, index) {
+      this.deleteRecords.push(record)
+      this.partRecords.splice(index, 1);
+    },
+    deleteRecord: function() {
+      console.log(this.deleteRecords)
+      this.loading = true;
+      for (let i = 0; i < this.deleteRecords.length; i++) {
+        const record = this.deleteRecords[i];
+        axios.delete(`/api/records/${record.id}`, record).then(
+          response => { 
+            this.loading = false;
+          },
+          error => {
+            console.log(error);
+          }
+        );
+      }
+      this.deleteRecords = [];
     }
   },
   computed: {
@@ -236,6 +263,11 @@ export default {
         this.amount_sum += Number(record.amount);
       }
       return this.amount_sum;
+    },
+    differenceAmmount: function(record) {
+      return {
+        "differenceAmmount": this.userAmount != record.amount
+      }
     }
   }
 };

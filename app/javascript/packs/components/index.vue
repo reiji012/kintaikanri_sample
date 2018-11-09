@@ -100,7 +100,7 @@ export default {
     },
     isLogin: function() {
       if (true) {
-        axios.get('/login')
+        axios.get('/login');
       }
     },
     createRecord: function () {
@@ -108,11 +108,11 @@ export default {
           this.today = `${this.year}-${this.month}-${this.date}`;
       axios.post('/api/records', { record: { user_id: this.userId, return_date: this.today, amount: this.amount } }).then((response) => {
         if (response.data.message) {
-          console.log(response.data.message)
+          console.log(response.data.message);
           this.errorMessage = "その日はすでに登録されています。";
         } else {
           this.records.unshift(response.data.record);
-         this.showModal = false
+         this.showModal = false;
         }
       })
       .catch(error => {

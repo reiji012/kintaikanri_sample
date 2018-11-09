@@ -51,25 +51,24 @@
 
     <div slot="body">
       <div class = "row">
-	 
-  <div>
-    <div @click="deleteUser()" class="box deleteButton button" style="float: right;">
-      削除
-    </div>
-    <label >名前</label>
-    <input v-model="user.name" class="form-control" type="text" v-on:input="update_furigana"/>
+        <div>
+          <label >名前</label>
+          <input v-model="user.name" class="form-control" type="text" v-on:input="update_furigana"/>
 
-    <label >仮名（ひらがな）</label>
-    <input v-model="user.kana" class="form-control" type="text" />
-    <label for="user_password">基本帰社費用</label>
-    <input v-model="user.amount" class="form-control" />
+          <label >仮名（ひらがな）</label>
+          <input v-model="user.kana" class="form-control" type="text" />
+          <label for="user_password">基本帰社費用</label>
+          <input v-model="user.amount" class="form-control" />
 
-    <input v-on:click="updateUser" :disabled="processing" type="submit" value="登録" class="btn btn-primary" />
-  </div>
-</div>
+          <input v-on:click="updateUser" :disabled="processing" type="submit" value="登録" class="btn btn-primary" />
+        </div>
+      </div>
     </div>
     
     <div slot="footer">
+      <div @click="deleteUser()" class="box deleteButton button" style="float: right;">
+        ユーザーの削除
+      </div>
     </div>
   </modal>
   </div>
