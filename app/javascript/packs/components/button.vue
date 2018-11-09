@@ -13,15 +13,17 @@
       </router-link>
     </div>
     <slot name="settingButton">
-    <router-link to="userRegistration">
-      <div id="userPut" class="box" style="border-radius: 20px; float: right;">
-        登録
+      <div v-if="isAdmin">
+        <router-link to="userRegistration">
+          <div id="userPut" class="box" style="border-radius: 20px; float: right;">
+            登録
+          </div>
+        </router-link><router-link to="userEdit">
+          <div id="userPut" class="box" style="border-radius: 20px; float: right;">
+            編集
+          </div>
+        </router-link>
       </div>
-    </router-link><router-link to="userEdit">
-      <div id="userPut" class="box" style="border-radius: 20px; float: right;">
-        編集
-      </div>
-    </router-link>
     </slot>
   </div>
 </template>
@@ -56,8 +58,12 @@ export default {
       });
     },
     loginCheck: function() {
-      if(Cookies.get('loginUser')) {
-        this.isLogin = true
+      let loginUser = Cookies.get('loginUser')
+      if (loginUser) {
+        this.isLogin = true;
+        if (loginUser == "admin") {
+          this.isAdmin = true;
+        }
       } 
     },
   }
