@@ -7,7 +7,7 @@
     </div>
 
   <!-- use the modal component, pass in the prop -->
-  <modal v-if="showModal" @close="showModal = false" v-show="!loading">
+  <modal v-if="showModal" @close="showModal = false" v-on:close="recordReset()" v-show="!loading">
 
     <div slot="header">
       <div class="showDate">
@@ -229,7 +229,6 @@ export default {
       this.fetchRecords();
       this.setRecord();
       this.showModal = false;
-      this.showModal = true;
       this.deleteRecords = [];
     },
     setDeleteRecords: function(record, index) {
@@ -240,9 +239,8 @@ export default {
     deleteRecord: function() {
       console.log(this.deleteRecords)
       this.loading = true;
-      for (let i = 0; i < this.deleteRecords.length; i++) {
-        const record = this.deleteRecords[i];
-        axios.delete(`/api/records/${record.id}`, record).then(
+
+        axios.delete(`/api/records/1`, {data: this.deleteRecords}).then(
           response => { 
             this.loading = false;
           },
@@ -250,7 +248,7 @@ export default {
             console.log(error);
           }
         );
-      }
+
       this.deleteRecords = [];
     }
   },

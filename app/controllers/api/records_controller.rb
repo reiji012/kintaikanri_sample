@@ -50,9 +50,10 @@ end
 		puts "hello"
 		puts params
 		puts "hey"
-		ReturnTime.find(params[:id]).destroy
-		flash[:success] = "Record deleted"
-		render json: {"message": "record destroy"}
+		for records in params[:_json] do
+			ReturnTime.find_by(id: records[:id]).destroy
+		end
+		render json: {message: "record deleted"}
 	end
 	
 	private
