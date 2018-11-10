@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div id="record">
+    <div id="record" >
       <div v-for="user in users" v-bind:key="'row_user_' + user.id" @click="showmodal(user)" id="show-modal" class="box userBox">
         <label v-bind:for="'user_' +user.id">{{ user.name }}</label>
       </div>
