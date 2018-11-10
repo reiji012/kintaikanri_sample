@@ -1,5 +1,5 @@
 <template>
-  <div v-if="isLogin">
+  <div v-show="isLogin">
     <div class="switchButton" style="display: flex; float: left;">
       <router-link to="/">
         <div class="box" style="border-radius: 20px;">
@@ -64,7 +64,9 @@ export default {
         if (loginUser == "admin") {
           this.isAdmin = true;
         }
-      } 
+      } else {
+        this.isLogin = false;
+      }
     },
   }
 }
