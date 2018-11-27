@@ -9,7 +9,7 @@
             <slot name="header">
             </slot>
           </div>
-
+          
           <div class="modal-body">
             <slot name="body">
             </slot>
