@@ -1,8 +1,9 @@
 class Api::RecordsController < ApplicationController
-#GET \users
-def index
-    @records = ReturnTime.order('return_date ASC')
-end
+	
+	#GET /users
+	def index
+			@records = ReturnTime.order('return_date ASC')
+	end
 
   #POST /users
 	def create

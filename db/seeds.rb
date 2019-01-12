@@ -32,15 +32,15 @@ User.create!(name: "北村 庄司",
 
 LoginUser.create!(
     name: "adminUser",
-    login_id: "crisi/admin",
-    password: "crisi",
+    login_id: "id/admin",
+    password: "password",
     admin: true
 )
 
 
 LoginUser.create!(
     name: "guestUser",
-    login_id: "crisi",
-    password: "crisi",
+    login_id: "id",
+    password: "password",
     admin: false
 )
